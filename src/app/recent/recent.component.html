@@ -1,0 +1,5 @@
+<div *ngFor="let groupByDayDiff of groups | async | keyvalue">
+	<h1>{{groupByDayDiff.key}} days ago</h1>
+	<recent-repo *ngFor="let groupByRepo of groupByDayDiff.value | keyvalue" [repoCommits]="groupByRepo">
+	</recent-repo>
+</div>

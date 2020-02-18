@@ -1,0 +1,47 @@
+<h2 mat-dialog-title *ngIf="data.title">
+  {{data.title}}
+</h2>
+
+<form id="form-dialog-form" class="flex column"
+    #f="ngForm" (ngSubmit)="dialog.close(f.value)">
+  <ng-container *ngFor="let field of data.fields">
+    <ng-container [ngSwitch]="field.type">
+      <mat-form-field *ngSwitchCase="'select'" appearance="standard">
+        <mat-label>{{field.label || field.name}}</mat-label>
+        <mat-select
+            [ngModel]="field.default"
+            [name]="field.name"
+            [required]="field.required"
+            [disabled]="field.disabled"
+            [placeholder]="field.placeholder">
+          <mat-option *ngFor="let option of field.options" [value]="option.value">
+            {{option.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngSwitchDefault appearance="standard">
+        <mat-label>{{field.label || field.name}}</mat-label>
+        <input matInput
+            autocomplete="off"
+            [type]="field.type || 'text'"
+            [ngModel]="field.default"
+            [name]="field.name"
+            [required]="field.required"
+            [readonly]="field.readonly"
+            [disabled]="field.disabled"
+            [placeholder]="field.placeholder">
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+</form>
+
+<div mat-dialog-actions>
+  <button type="submit" form="form-dialog-form"
+      mat-button color="primary" [disabled]="f.invalid || f.pristine">
+    {{data.submitText || 'Submit'}}
+  </button>
+  <button mat-button matDialogClose>
+    {{data.cancelText || 'Cancel'}}
+  </button>
+</div>
