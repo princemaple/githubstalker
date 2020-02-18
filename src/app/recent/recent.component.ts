@@ -3,13 +3,13 @@ import {HttpClient} from '@angular/common/http';
 
 import {Observable, from} from 'rxjs';
 import {map, switchMap, mergeAll, toArray} from 'rxjs/operators';
-import {addDays, format, differenceInDays} from 'date-fns';
+import {addDays, format, differenceInDays, parseISO} from 'date-fns';
 import {groupBy, flattenDeep, mapValues} from 'lodash-es';
 
 @Component({
   selector: 'recent',
   templateUrl: './recent.component.html',
-  styleUrls: ['./recent.component.css']
+  styleUrls: ['./recent.component.css'],
 })
 export class RecentComponent implements OnChanges {
   @Input() token: string;
@@ -24,7 +24,7 @@ export class RecentComponent implements OnChanges {
     this.init();
   }
 
-  private options(token) {
+  private options(token: string) {
     if (token) {
       return {headers: {Authorization: `token ${token}`}};
     }
@@ -55,7 +55,10 @@ export class RecentComponent implements OnChanges {
               ),
             ),
             entry =>
-              differenceInDays(new Date(), entry.data.commit.committer.date),
+              differenceInDays(
+                new Date(),
+                parseISO(entry.data.commit.committer.date),
+              ),
           ),
           group => groupBy(group, entry => entry.repo),
         ),

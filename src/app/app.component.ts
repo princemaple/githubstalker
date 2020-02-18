@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
 import { FormDialogComponent, TemplateData } from './form-dialog/form-dialog.component'
 
 @Component({
-  selector: 'my-app',
+  selector: 'gs-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   token: string;
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('token')!;
 
     if (!this.token) {
       this.getToken();
