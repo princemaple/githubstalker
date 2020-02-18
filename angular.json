@@ -102,6 +102,10 @@
           "options": {
             "browserTarget": "githubstalker:build"
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

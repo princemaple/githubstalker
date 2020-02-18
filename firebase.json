@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "githubstalker",
+      "public": "dist/githubstalker",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
