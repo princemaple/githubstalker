@@ -3,7 +3,13 @@ import {HttpClient} from '@angular/common/http';
 
 import {Observable, from} from 'rxjs';
 import {map, switchMap, mergeAll, toArray} from 'rxjs/operators';
-import {addDays, format, differenceInDays, parseISO} from 'date-fns';
+import {
+  addDays,
+  startOfDay,
+  format,
+  differenceInDays,
+  parseISO,
+} from 'date-fns';
 import {groupBy, flattenDeep, mapValues} from 'lodash-es';
 
 @Component({
@@ -32,7 +38,9 @@ export class RecentComponent implements OnChanges {
   }
 
   private init() {
-    const since = addDays(new Date(), -this.sinceDaysAgo || -7).toISOString();
+    const since = startOfDay(
+      addDays(new Date(), -this.sinceDaysAgo),
+    ).toISOString();
 
     this.groups = from(
       this.repos.map(repo =>
