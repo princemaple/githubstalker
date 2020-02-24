@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {BehaviorSubject} from 'rxjs';
@@ -12,23 +12,35 @@ type Repos = {[owner: string]: string[]};
 @Component({
   selector: 'repo-selector',
   templateUrl: './repo-selector.component.html',
-  styleUrls: ['./repo-selector.component.css']
+  styleUrls: ['./repo-selector.component.scss'],
 })
 export class RepoSelectorComponent implements OnInit {
   _repos: Repos;
 
   repos = new BehaviorSubject<string[]>([]);
 
+  private _showRepos: boolean;
+  get showRepos() {
+    return this._showRepos;
+  }
+  set showRepos(v: boolean) {
+    this._showRepos = v;
+    localStorage.setItem('showRepos', JSON.stringify(v));
+  }
+
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
-    let repos;
-    if (repos = localStorage.getItem('repos')) {
-      this._repos = JSON.parse(repos);
+    this._showRepos = JSON.parse(localStorage.getItem('showRepos') || 'true');
 
+    let repos;
+
+    if ((repos = localStorage.getItem('repos'))) {
+      this._repos = JSON.parse(repos);
     } else {
       this._repos = {};
     }
+
     this.emitRepos(this._repos);
   }
 
@@ -44,24 +56,42 @@ export class RepoSelectorComponent implements OnInit {
     );
   }
 
-  addRepo(store: Repos, key: string) {
-    this.dialog.open(FormDialogComponent, {data: {title: 'New Repo', fields: [{name: 'name', label: 'Repo Name', type: 'text'}]}}).afterClosed().pipe(
-      filter(form => !!form),
-      tap(form => {
-        store[key].push(form.name);
-        this.save();
+  addRepo(repos: Repos, key: string) {
+    this.dialog
+      .open(FormDialogComponent, {
+        data: {
+          title: '+Repo',
+          fields: [{name: 'name', label: 'Repo Name', type: 'text'}],
+        },
       })
-    ).subscribe();
+      .afterClosed()
+      .pipe(
+        filter(form => !!form),
+        tap(form => {
+          repos[key].push(form.name);
+          this.save();
+        }),
+      )
+      .subscribe();
   }
 
-  addCard(store: Repos) {
-    this.dialog.open(FormDialogComponent, {data: {title: 'New Card', fields: [{name: 'name', label: 'User/Org', type: 'text'}]}}).afterClosed().pipe(
-      filter(form => !!form),
-      tap(form => {
-        store[form.name] = [];
-        this.save();
+  addCard(repos: Repos) {
+    this.dialog
+      .open(FormDialogComponent, {
+        data: {
+          title: '+User/Org',
+          fields: [{name: 'name', label: 'User/Org', type: 'text'}],
+        },
       })
-    ).subscribe();
+      .afterClosed()
+      .pipe(
+        filter(form => !!form),
+        tap(form => {
+          repos[form.name] = [];
+          this.save();
+        }),
+      )
+      .subscribe();
   }
 
   deleteRepo(repos: string[], repo: string) {
@@ -69,8 +99,8 @@ export class RepoSelectorComponent implements OnInit {
     this.save();
   }
 
-  deleteCard(store: Repos, owner: string) {
-    delete store[owner];
+  deleteCard(repos: Repos, owner: string) {
+    delete repos[owner];
     this.save();
   }
 

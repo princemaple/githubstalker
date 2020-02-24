@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.card-count {
+  display: none;
+}
+
+.hide-repos {
+  .mat-card {
+    display: none;
+  }
+
+  .card-count {
+    display: inline-block;
+  }
+}
