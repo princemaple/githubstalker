@@ -20,6 +20,8 @@ import {FormDialogComponent} from './form-dialog/form-dialog.component';
 import {AgoPipe} from './ago.pipe';
 import {RepoSelectorComponent} from './repo-selector/repo-selector.component';
 import {RecentRepoComponent} from './recent-repo/recent-repo.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,9 @@ import {RecentRepoComponent} from './recent-repo/recent-repo.component';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
