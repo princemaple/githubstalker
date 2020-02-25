@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "~9.0.2",
     "@angular/router": "~9.0.2",
     "@angular/service-worker": "~9.0.1",
-    "date-fns": "^2.9.0",
+    "date-fns": "^2.10.0",
     "lodash-es": "^4.17.15",
     "rxjs": "~6.5.4",
     "tslib": "^1.11.0",
