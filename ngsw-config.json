@@ -32,9 +32,10 @@
       "name": "GitHubAPI",
       "urls": [
         "https://api.github.com/**",
-        "https://avatars*.githubusercontent.com/u/*"
+        "https://avatars*.githubusercontent.com/u/*",
+        "https://fonts.googleapis.com/*"
       ],
-      "version": 1,
+      "version": 2,
       "cacheConfig": {
         "maxSize": 500,
         "maxAge": "3d",
