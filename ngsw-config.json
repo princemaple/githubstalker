@@ -32,14 +32,26 @@
       "name": "GitHubAPI",
       "urls": [
         "https://api.github.com/**",
-        "https://avatars*.githubusercontent.com/u/*",
-        "https://fonts.googleapis.com/*"
+        "https://avatars*.githubusercontent.com/u/*"
       ],
-      "version": 2,
+      "version": 3,
       "cacheConfig": {
         "maxSize": 500,
-        "maxAge": "3d",
+        "maxAge": "2d",
         "strategy": "freshness"
+      }
+    },
+    {
+      "name": "GoogleAssets",
+      "urls": [
+        "https://fonts.googleapis.com/**",
+        "https://fonts.gstatic.com/**"
+      ],
+      "version": 1,
+      "cacheConfig": {
+        "maxSize": 20,
+        "maxAge": "30d",
+        "strategy": "performance"
       }
     }
   ]
