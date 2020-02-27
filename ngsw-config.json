@@ -40,19 +40,6 @@
         "maxAge": "2d",
         "strategy": "freshness"
       }
-    },
-    {
-      "name": "GoogleAssets",
-      "urls": [
-        "https://fonts.googleapis.com/**",
-        "https://fonts.gstatic.com/**"
-      ],
-      "version": 1,
-      "cacheConfig": {
-        "maxSize": 20,
-        "maxAge": "30d",
-        "strategy": "performance"
-      }
     }
   ]
 }
