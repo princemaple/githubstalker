@@ -22,7 +22,7 @@ export class RecentComponent implements OnChanges {
   @Input() repos: string[];
   @Input() sinceDaysAgo: number;
 
-  groups: Observable<any>;
+  groups: Observable<{[dayDiff: number]: {[repo: string]: object[]}}>;
 
   constructor(private http: HttpClient) {}
 
@@ -62,13 +62,13 @@ export class RecentComponent implements OnChanges {
                 commits.map(data => ({repo, data})),
               ),
             ),
-            entry =>
+            commit =>
               differenceInDays(
                 new Date(),
-                parseISO(entry.data.commit.committer.date),
+                parseISO(commit.data.commit.committer.date),
               ),
           ),
-          group => groupBy(group, entry => entry.repo),
+          group => groupBy(group, commit => commit.repo),
         ),
       ),
     );
