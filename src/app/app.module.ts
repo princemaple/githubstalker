@@ -23,15 +23,19 @@ import {RecentRepoComponent} from './recent-repo/recent-repo.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ConfirmModule} from './confirm/confirm.module';
+import {StalkingComponent} from './stalking/stalking.component';
+import {CallbackComponent} from './callback/callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    StalkingComponent,
     RecentComponent,
     FormDialogComponent,
     AgoPipe,
     RepoSelectorComponent,
     RecentRepoComponent,
+    CallbackComponent,
   ],
   imports: [
     BrowserModule,
