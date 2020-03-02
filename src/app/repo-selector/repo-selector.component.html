@@ -1,4 +1,4 @@
-<div class="flex gap cross-start" [ngClass]="{'hide-repos': !showRepos}">
+<div class="flex gap cross-start" [ngClass]="{ 'hide-repos': !showRepos }">
   <mat-card *ngFor="let item of _repos | keyvalue" [style.margin-bottom.em]="1">
     <mat-card-title>
       {{ item.key }}
@@ -7,7 +7,13 @@
       <mat-list>
         <mat-list-item *ngFor="let name of item.value">
           <span mat-line> {{ name }} </span>
-          <button mat-icon-button color="warn" (click)="deleteRepo(item.value, name)">
+          <button
+            mat-icon-button
+            color="warn"
+            (confirm)="deleteRepo(item.value, name)"
+            [confirmContext]="{ $implicit: name }"
+            [confirmTemplate]="confirmDelete"
+          >
             &times;
           </button>
         </mat-list-item>
@@ -15,13 +21,27 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-button color="primary" (click)="addRepo(_repos, item.key)">+Repo</button>
-      <button mat-button color="warn" (click)="deleteCard(_repos, item.key)">-Card</button>
+      <button
+        mat-button
+        color="warn"
+        (confirm)="deleteCard(_repos, item.key)"
+        [confirmContext]="{ $implicit: item.key }"
+        [confirmTemplate]="confirmDelete"
+      >
+        -Card
+      </button>
     </mat-card-actions>
   </mat-card>
   <button mat-raised-button color="primary" (click)="addCard(_repos)">
     +User/Org
   </button>
-  <button *ngIf="showRepos" mat-button color="primary" (click)="showRepos = false">Hide Cards</button>
-  <button *ngIf="!showRepos" mat-button color="primary" (click)="showRepos = true">Show Cards</button>
-  <span class="card-count align-self-center">{{repos.value.length}} Repos</span>
+  <button *ngIf="showRepos" mat-button color="primary" (click)="showRepos = false">
+    Hide Cards
+  </button>
+  <button *ngIf="!showRepos" mat-button color="primary" (click)="showRepos = true">
+    Show Cards
+  </button>
+  <span class="card-count align-self-center">{{ repos.value.length }} Repos</span>
 </div>
+
+<ng-template #confirmDelete let-repo> Are you sure about deleting {{ repo }}? </ng-template>

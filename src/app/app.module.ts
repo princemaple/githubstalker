@@ -22,6 +22,7 @@ import {RepoSelectorComponent} from './repo-selector/repo-selector.component';
 import {RecentRepoComponent} from './recent-repo/recent-repo.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import {ConfirmModule} from './confirm/confirm.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {environment} from '../environments/environment';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    ConfirmModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

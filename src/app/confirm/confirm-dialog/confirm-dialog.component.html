@@ -1,0 +1,10 @@
+<h3 mat-dialog-title *ngIf="data.context.title">
+  {{ data.context.title }}
+</h3>
+
+<ng-container *ngTemplateOutlet="data.template; context: data.context"></ng-container>
+
+<mat-dialog-actions align="end">
+  <button mat-button matDialogClose>Cancel</button>
+  <button mat-button color="warn" matDialogClose="true">Confirm</button>
+</mat-dialog-actions>
