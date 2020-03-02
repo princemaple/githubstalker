@@ -3,3 +3,7 @@
 	<recent-repo *ngFor="let groupByRepo of groupByDayDiff.value | keyvalue" [repoCommits]="groupByRepo">
 	</recent-repo>
 </div>
+
+<ng-template #rateLimitError>
+  You have hit unauthenticated rate limit of GitHub API. Try OAuth?
+</ng-template>
