@@ -9,13 +9,18 @@ import {FormDialogComponent} from '../form-dialog/form-dialog.component';
 
 type Repos = {[owner: string]: string[]};
 
+const InitRepos: Repos = {
+  angular: ['angular', 'components'],
+  'elixir-lang': ['elixir'],
+};
+
 @Component({
   selector: 'repo-selector',
   templateUrl: './repo-selector.component.html',
   styleUrls: ['./repo-selector.component.scss'],
 })
 export class RepoSelectorComponent implements OnInit {
-  _repos: Repos;
+  _repos: Repos = InitRepos;
 
   repos = new BehaviorSubject<string[]>([]);
 
@@ -34,11 +39,8 @@ export class RepoSelectorComponent implements OnInit {
     this._showRepos = JSON.parse(localStorage.getItem('showRepos') || 'true');
 
     let repos;
-
     if ((repos = localStorage.getItem('repos'))) {
       this._repos = JSON.parse(repos);
-    } else {
-      this._repos = {};
     }
 
     this.emitRepos(this._repos);
