@@ -12,6 +12,7 @@ type Repos = {[owner: string]: string[]};
 const InitRepos: Repos = {
   angular: ['angular', 'components'],
   'elixir-lang': ['elixir'],
+  caddyserver: ['caddy'],
 };
 
 @Component({
