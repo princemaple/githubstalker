@@ -2,13 +2,13 @@
 
 Stalking multiple GitHub projects on commit level.
 
-## See latest commits
+## :eyes: See latest commits
 ![](https://raw.githubusercontent.com/primeminddigital/octo-stalker/master/assets/Annotation%202020-09-04%20155407.png)
 
-## Separated by projects and days
+## :calendar: Separated by projects and days
 ![](https://raw.githubusercontent.com/primeminddigital/octo-stalker/master/assets/Annotation%202020-09-04%20155443.png)
 
-## Manage repos you want to watch
+## :gear: Manage repos you want to watch
 ![](https://raw.githubusercontent.com/primeminddigital/octo-stalker/master/assets/Annotation%202020-09-04%20155506.png)
 
 ------
