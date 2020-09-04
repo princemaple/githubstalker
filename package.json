@@ -43,7 +43,7 @@
     "tslint": "~6.1.3",
     "typescript": "~4.0.2",
     "@angular-devkit/architect": "0.1001.0",
-    "firebase-tools": "^8.7.0",
+    "firebase-tools": "^8.10.0",
     "fuzzy": "^0.1.3",
     "inquirer": "^6.2.2",
     "inquirer-autocomplete-prompt": "^1.1.0"
