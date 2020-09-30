@@ -8,7 +8,7 @@
   <mat-list-item *ngFor="let entry of repoCommits.value">
     <img matListAvatar src="{{ entry.data.author?.avatar_url }}&s=48" alt="Avatar-Missing" />
     <p mat-line>
-      <a href="{{ entry.data.html_url }}" target="_blank">
+      <a href="{{ entry.data.html_url }}" target="_blank" rel="noopener">
         {{ entry.data.commit.message }}
       </a>
     </p>
