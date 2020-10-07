@@ -29,7 +29,7 @@
     "rxjs": "6.6.3",
     "tslib": "2.0.2",
     "zone.js": "0.11.1",
-    "firebase": "7.22.0"
+    "firebase": "7.22.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1001.4",
