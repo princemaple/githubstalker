@@ -11,5 +11,6 @@
       "depTypeList": ["devDependencies"],
       "automerge": true
     }
-  ]
+  ],
+  "requiredStatusChecks": null
 }
