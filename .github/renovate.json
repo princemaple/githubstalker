@@ -6,7 +6,7 @@
   "packageRules": [
     {
       "updateTypes": ["minor", "patch", "pin", "digest"],
-      "excludePackagePatterns": ["^@angular"],
+      "excludePackagePatterns": ["^@angular", "typescript"],
       "automerge": true
     }
   ]
