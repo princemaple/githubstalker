@@ -7,19 +7,13 @@
       <mat-list>
         <mat-list-item *ngFor="let repoName of repoGroup.value">
           <span mat-line> {{ repoName }} </span>
-          <span
-            class="count"
-            [class.plus]="_repoInfo[repoGroup.key][repoName]?.issues?.length >= 100"
-          >
+          <span class="count">
             <mat-icon>info</mat-icon>
-            {{ _repoInfo[repoGroup.key][repoName]?.issues?.length }}
+            {{ _repoInfo[repoGroup.key][repoName]?.issues }}
           </span>
-          <span
-            class="count"
-            [class.plus]="_repoInfo[repoGroup.key][repoName]?.pulls?.length >= 100"
-          >
+          <span class="count">
             <mat-icon>call_merge</mat-icon>
-            {{ _repoInfo[repoGroup.key][repoName]?.pulls?.length }}
+            {{ _repoInfo[repoGroup.key][repoName]?.pullRequests }}
           </span>
           <button
             mat-icon-button

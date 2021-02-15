@@ -59,36 +59,43 @@ export class RepoSelectorComponent implements OnInit {
   }
 
   private loadIssuesAndPulls() {
-    Object.entries(this._repos).forEach(([orgOrUser, repos]) => {
-      if (!this._repoInfo[orgOrUser]) {
-        this._repoInfo[orgOrUser] = {};
+    Object.entries(this._repos).forEach(([owner, repos]) => {
+      if (!this._repoInfo[owner]) {
+        this._repoInfo[owner] = {};
       }
 
       repos.forEach(repo => {
-        if (!this._repoInfo[orgOrUser][repo]) {
-          this._repoInfo[orgOrUser][repo] = {};
-        } else if (
-          this._repoInfo[orgOrUser][repo].pulls &&
-          this._repoInfo[orgOrUser][repo].issues
-        ) {
+        if (!this._repoInfo[owner][repo]) {
+          this._repoInfo[owner][repo] = {};
+        } else if (this._repoInfo[owner][repo].pulls && this._repoInfo[owner][repo].issues) {
           return;
         }
 
         this.http
-          .get(`https://api.github.com/repos/${orgOrUser}/${repo}/pulls`, {
-            params: {state: 'open', per_page: '100'},
+          .post('https://api.github.com/graphql', {
+            query: `{
+              repository(owner: "${owner}", name: "${repo}") {
+                pullRequests(states: OPEN) {
+                  totalCount
+                }
+                issues(states: OPEN) {
+                  totalCount
+                }
+              }
+            }`,
           })
-          .subscribe(data => {
-            this._repoInfo[orgOrUser][repo].pulls = data;
-          });
-
-        this.http
-          .get(`https://api.github.com/repos/${orgOrUser}/${repo}/issues`, {
-            params: {state: 'open', per_page: '100'},
-          })
-          .subscribe(data => {
-            this._repoInfo[orgOrUser][repo].issues = data;
-          });
+          .subscribe(
+            ({
+              data,
+            }: {
+              data: {
+                repository: {issues: {totalCount: number}; pullRequests: {totalCount: number}};
+              };
+            }) => {
+              this._repoInfo[owner][repo].issues = data.repository.issues.totalCount;
+              this._repoInfo[owner][repo].pullRequests = data.repository.pullRequests.totalCount;
+            },
+          );
       });
     });
   }
