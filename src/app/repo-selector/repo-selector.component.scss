@@ -3,6 +3,17 @@
   margin-bottom: 1em;
 }
 
+a,
+a:hover,
+a:focus,
+a:visited {
+  color: inherit;
+}
+
+.mat-list {
+  margin: 0 -24px 0 -16px;
+}
+
 .card-count {
   display: none;
 }

@@ -15,12 +15,8 @@ a {
   flex-grow: 1;
 }
 
-.flex.gap > *:not(:last-child) {
-  margin-right: 1em;
-}
-
-.flex.column.gap > *:not(:last-child) {
-  margin-bottom: 1em;
+.flex.gap {
+  gap: 1em;
 }
 
 .flex.row {
