@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {BehaviorSubject} from 'rxjs';
@@ -52,11 +52,7 @@ export class RepoSelectorComponent implements OnInit {
   }
 
   private flattenRepos(repos: Repos) {
-    return flatten(
-      Object.keys(repos).map(owner =>
-        repos[owner].map(repo => `${owner}/${repo}`),
-      ),
-    );
+    return flatten(Object.keys(repos).map(owner => repos[owner].map(repo => `${owner}/${repo}`)));
   }
 
   addRepo(repos: Repos, key: string) {
