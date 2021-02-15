@@ -1,12 +1,14 @@
 <div class="flex gap cross-start" [ngClass]="{'hide-repos': !showRepos}">
   <mat-card *ngFor="let repoGroup of _repos | keyvalue" [style.margin-bottom.em]="1">
     <mat-card-title>
-      {{ repoGroup.key }}
+      <a href="https://github.com/{{ repoGroup.key }}" target="_blank">{{ repoGroup.key }}</a>
     </mat-card-title>
     <mat-card-content>
       <mat-list>
         <mat-list-item *ngFor="let repoName of repoGroup.value">
-          <span mat-line> {{ repoName }} </span>
+          <a mat-line href="https://github.com/{{ repoGroup.key }}/{{ repoName }}" target="_blank">
+            {{ repoName }}
+          </a>
           <span class="count">
             <mat-icon>info</mat-icon>
             {{ repoInfo[repoGroup.key][repoName]?.issues?.totalCount }}
