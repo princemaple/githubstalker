@@ -28,7 +28,7 @@ const InitRepos: Repos = {
 })
 export class RepoSelectorComponent implements OnInit {
   _repos: Repos = InitRepos;
-  repoInfo: {[owner: string]: {[repo: string]: GitHubResponse['data']['repository']}};
+  repoInfo: {[owner: string]: {[repo: string]: GitHubResponse['data']['repository']}} = {};
 
   repos = new BehaviorSubject<string[]>([]);
 
