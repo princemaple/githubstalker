@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {BehaviorSubject} from 'rxjs';
-import {filter, tap} from 'rxjs/operators';
+import {filter, mergeAll, switchMap, tap} from 'rxjs/operators';
 import {flatten} from 'lodash-es';
 
 import {FormDialogComponent} from '../form-dialog/form-dialog.component';
+import {HttpClient} from '@angular/common/http';
 
 type Repos = {[owner: string]: string[]};
 
@@ -22,6 +23,7 @@ const InitRepos: Repos = {
 })
 export class RepoSelectorComponent implements OnInit {
   _repos: Repos = InitRepos;
+  _repoInfo: any = {};
 
   repos = new BehaviorSubject<string[]>([]);
 
@@ -34,7 +36,7 @@ export class RepoSelectorComponent implements OnInit {
     localStorage.setItem('showRepos', JSON.stringify(v));
   }
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private http: HttpClient) {}
 
   ngOnInit() {
     this._showRepos = JSON.parse(localStorage.getItem('showRepos') || 'true');
@@ -44,15 +46,51 @@ export class RepoSelectorComponent implements OnInit {
       this._repos = JSON.parse(repos);
     }
 
-    this.emitRepos(this._repos);
+    this.emitRepos();
   }
 
-  private emitRepos(repos: Repos) {
-    this.repos.next(this.flattenRepos(repos));
+  private emitRepos() {
+    this.repos.next(this.flattenRepos(this._repos));
+    this.loadIssuesAndPulls();
   }
 
   private flattenRepos(repos: Repos) {
     return flatten(Object.keys(repos).map(owner => repos[owner].map(repo => `${owner}/${repo}`)));
+  }
+
+  private loadIssuesAndPulls() {
+    Object.entries(this._repos).forEach(([orgOrUser, repos]) => {
+      if (!this._repoInfo[orgOrUser]) {
+        this._repoInfo[orgOrUser] = {};
+      }
+
+      repos.forEach(repo => {
+        if (!this._repoInfo[orgOrUser][repo]) {
+          this._repoInfo[orgOrUser][repo] = {};
+        } else if (
+          this._repoInfo[orgOrUser][repo].pulls &&
+          this._repoInfo[orgOrUser][repo].issues
+        ) {
+          return;
+        }
+
+        this.http
+          .get(`https://api.github.com/repos/${orgOrUser}/${repo}/pulls`, {
+            params: {state: 'open', per_page: '100'},
+          })
+          .subscribe(data => {
+            this._repoInfo[orgOrUser][repo].pulls = data;
+          });
+
+        this.http
+          .get(`https://api.github.com/repos/${orgOrUser}/${repo}/issues`, {
+            params: {state: 'open', per_page: '100'},
+          })
+          .subscribe(data => {
+            this._repoInfo[orgOrUser][repo].issues = data;
+          });
+      });
+    });
   }
 
   addRepo(repos: Repos, key: string) {
@@ -104,7 +142,7 @@ export class RepoSelectorComponent implements OnInit {
   }
 
   save() {
-    this.emitRepos(this._repos);
+    this.emitRepos();
     localStorage.setItem('repos', JSON.stringify(this._repos));
   }
 }

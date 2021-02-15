@@ -16,3 +16,13 @@
     display: inline-block;
   }
 }
+
+.count {
+  display: inline-flex;
+  margin: 0 0.5em;
+  align-items: center;
+}
+
+.plus::after {
+  content: '+';
+}

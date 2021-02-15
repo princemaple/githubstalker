@@ -1,31 +1,45 @@
 <div class="flex gap cross-start" [ngClass]="{'hide-repos': !showRepos}">
-  <mat-card *ngFor="let item of _repos | keyvalue" [style.margin-bottom.em]="1">
+  <mat-card *ngFor="let repoGroup of _repos | keyvalue" [style.margin-bottom.em]="1">
     <mat-card-title>
-      {{ item.key }}
+      {{ repoGroup.key }}
     </mat-card-title>
     <mat-card-content>
       <mat-list>
-        <mat-list-item *ngFor="let name of item.value">
-          <span mat-line> {{ name }} </span>
+        <mat-list-item *ngFor="let repoName of repoGroup.value">
+          <span mat-line> {{ repoName }} </span>
+          <span
+            class="count"
+            [class.plus]="_repoInfo[repoGroup.key][repoName]?.issues?.length >= 100"
+          >
+            <mat-icon>info</mat-icon>
+            {{ _repoInfo[repoGroup.key][repoName]?.issues?.length }}
+          </span>
+          <span
+            class="count"
+            [class.plus]="_repoInfo[repoGroup.key][repoName]?.pulls?.length >= 100"
+          >
+            <mat-icon>call_merge</mat-icon>
+            {{ _repoInfo[repoGroup.key][repoName]?.pulls?.length }}
+          </span>
           <button
             mat-icon-button
             color="warn"
-            (confirm)="deleteRepo(item.value, name)"
-            [confirmContext]="{$implicit: name}"
+            (confirm)="deleteRepo(repoGroup.value, repoName)"
+            [confirmContext]="{$implicit: repoName}"
             [confirmTemplate]="confirmDelete"
           >
-            &times;
+            <mat-icon>clear</mat-icon>
           </button>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary" (click)="addRepo(_repos, item.key)">+Repo</button>
+      <button mat-button color="primary" (click)="addRepo(_repos, repoGroup.key)">+Repo</button>
       <button
         mat-button
         color="warn"
-        (confirm)="deleteCard(_repos, item.key)"
-        [confirmContext]="{$implicit: item.key}"
+        (confirm)="deleteCard(_repos, repoGroup.key)"
+        [confirmContext]="{$implicit: repoGroup.key}"
         [confirmTemplate]="confirmDelete"
       >
         -Card
