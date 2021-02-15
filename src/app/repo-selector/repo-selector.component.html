@@ -1,4 +1,4 @@
-<div class="flex gap cross-start" [ngClass]="{ 'hide-repos': !showRepos }">
+<div class="flex gap cross-start" [ngClass]="{'hide-repos': !showRepos}">
   <mat-card *ngFor="let item of _repos | keyvalue" [style.margin-bottom.em]="1">
     <mat-card-title>
       {{ item.key }}
@@ -11,7 +11,7 @@
             mat-icon-button
             color="warn"
             (confirm)="deleteRepo(item.value, name)"
-            [confirmContext]="{ $implicit: name }"
+            [confirmContext]="{$implicit: name}"
             [confirmTemplate]="confirmDelete"
           >
             &times;
@@ -25,16 +25,14 @@
         mat-button
         color="warn"
         (confirm)="deleteCard(_repos, item.key)"
-        [confirmContext]="{ $implicit: item.key }"
+        [confirmContext]="{$implicit: item.key}"
         [confirmTemplate]="confirmDelete"
       >
         -Card
       </button>
     </mat-card-actions>
   </mat-card>
-  <button mat-raised-button color="primary" (click)="addCard(_repos)">
-    +User/Org
-  </button>
+  <button mat-raised-button color="primary" (click)="addCard(_repos)">+User/Org</button>
   <button *ngIf="showRepos" mat-button color="primary" (click)="showRepos = false">
     Hide Cards
   </button>

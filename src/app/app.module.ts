@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -25,6 +25,7 @@ import {environment} from '../environments/environment';
 import {ConfirmModule} from './confirm/confirm.module';
 import {StalkingComponent} from './stalking/stalking.component';
 import {CallbackComponent} from './callback/callback.component';
+import {AuthInterceptor} from './interceptors';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import {CallbackComponent} from './callback/callback.component';
     }),
     ConfirmModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
