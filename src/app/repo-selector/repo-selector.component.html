@@ -9,11 +9,11 @@
           <span mat-line> {{ repoName }} </span>
           <span class="count">
             <mat-icon>info</mat-icon>
-            {{ _repoInfo[repoGroup.key][repoName]?.issues }}
+            {{ repoInfo[repoGroup.key][repoName]?.issues?.totalCount }}
           </span>
           <span class="count">
             <mat-icon>call_merge</mat-icon>
-            {{ _repoInfo[repoGroup.key][repoName]?.pullRequests }}
+            {{ repoInfo[repoGroup.key][repoName]?.pullRequests?.totalCount }}
           </span>
           <button
             mat-icon-button

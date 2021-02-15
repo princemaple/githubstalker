@@ -2,13 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {BehaviorSubject} from 'rxjs';
-import {filter, mergeAll, switchMap, tap} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 import {flatten} from 'lodash-es';
 
 import {FormDialogComponent} from '../form-dialog/form-dialog.component';
 import {HttpClient} from '@angular/common/http';
 
 type Repos = {[owner: string]: string[]};
+type GitHubResponse = {
+  data: {
+    repository: {issues: {totalCount: number}; pullRequests: {totalCount: number}};
+  };
+};
 
 const InitRepos: Repos = {
   angular: ['angular', 'components'],
@@ -23,7 +28,7 @@ const InitRepos: Repos = {
 })
 export class RepoSelectorComponent implements OnInit {
   _repos: Repos = InitRepos;
-  _repoInfo: any = {};
+  repoInfo: {[owner: string]: {[repo: string]: GitHubResponse['data']['repository']}};
 
   repos = new BehaviorSubject<string[]>([]);
 
@@ -60,14 +65,12 @@ export class RepoSelectorComponent implements OnInit {
 
   private loadIssuesAndPulls() {
     Object.entries(this._repos).forEach(([owner, repos]) => {
-      if (!this._repoInfo[owner]) {
-        this._repoInfo[owner] = {};
+      if (!this.repoInfo[owner]) {
+        this.repoInfo[owner] = {};
       }
 
       repos.forEach(repo => {
-        if (!this._repoInfo[owner][repo]) {
-          this._repoInfo[owner][repo] = {};
-        } else if (this._repoInfo[owner][repo].pulls && this._repoInfo[owner][repo].issues) {
+        if (this.repoInfo[owner][repo]) {
           return;
         }
 
@@ -84,18 +87,9 @@ export class RepoSelectorComponent implements OnInit {
               }
             }`,
           })
-          .subscribe(
-            ({
-              data,
-            }: {
-              data: {
-                repository: {issues: {totalCount: number}; pullRequests: {totalCount: number}};
-              };
-            }) => {
-              this._repoInfo[owner][repo].issues = data.repository.issues.totalCount;
-              this._repoInfo[owner][repo].pullRequests = data.repository.pullRequests.totalCount;
-            },
-          );
+          .subscribe(({data}: GitHubResponse) => {
+            this.repoInfo[owner][repo] = data.repository;
+          });
       });
     });
   }
