@@ -9,7 +9,7 @@ Stalking multiple GitHub projects on commit level.
 <img src="https://raw.githubusercontent.com/primeminddigital/octo-stalker/master/assets/Annotation%202020-09-04%20155443.png" width="500px" />
 
 ## :gear: Manage repos you want to watch
-![](https://raw.githubusercontent.com/primeminddigital/octo-stalker/master/assets/Annotation%202020-09-04%20155506.png)
+![](https://raw.githubusercontent.com/primeminddigital/octo-stalker/master/assets/Screenshot%202021-02-15%20183138.png)
 
 ------
 
