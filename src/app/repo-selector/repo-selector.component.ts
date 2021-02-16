@@ -151,4 +151,13 @@ export class RepoSelectorComponent implements OnInit {
     navigator.clipboard.writeText(JSON.stringify(this._repos));
     alert('Copied repo data to clipboard!');
   }
+
+  import() {
+    const data = prompt('Repo data:');
+
+    if (data) {
+      Object.assign(this._repos, JSON.parse(data));
+      this.save();
+    }
+  }
 }

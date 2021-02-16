@@ -51,8 +51,12 @@
   </button>
   <span class="card-count align-self-center">{{ repos.value.length }} Repos</span>
   <button mat-button color="primary" (click)="export()">
-    <mat-icon>export</mat-icon>
+    <mat-icon>content_copy</mat-icon>
     Export Repos
+  </button>
+  <button mat-button color="primary" (click)="import()">
+    <mat-icon>content_paste</mat-icon>
+    Import Repos
   </button>
 </div>
 
