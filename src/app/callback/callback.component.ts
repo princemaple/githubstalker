@@ -9,9 +9,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class CallbackComponent {
   constructor(client: HttpClient, route: ActivatedRoute, router: Router) {
     client
-      .post('https://dev.pochen.me/oauth/github/login/oauth/access_token', null, {
+      .post('https://primemind.digital/oauth/github/login/oauth/access_token', null, {
         params: {
           client_id: 'bb333509e1fb0e20e1eb',
+          client_secret: 'SECRET',
           code: route.snapshot.queryParams.code,
         },
       })
