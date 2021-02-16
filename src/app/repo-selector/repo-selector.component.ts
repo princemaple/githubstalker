@@ -146,4 +146,9 @@ export class RepoSelectorComponent implements OnInit {
     this.emitRepos();
     localStorage.setItem('repos', JSON.stringify(this._repos));
   }
+
+  export() {
+    navigator.clipboard.writeText(JSON.stringify(this._repos));
+    alert('Copied repo data to clipboard!');
+  }
 }

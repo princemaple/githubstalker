@@ -50,6 +50,10 @@
     Show Cards
   </button>
   <span class="card-count align-self-center">{{ repos.value.length }} Repos</span>
+  <button mat-button color="primary" (click)="export()">
+    <mat-icon>export</mat-icon>
+    Export Repos
+  </button>
 </div>
 
 <ng-template #confirmDelete let-repo> Are you sure about deleting {{ repo }}? </ng-template>
