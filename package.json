@@ -32,8 +32,8 @@
     "firebase": "8.2.7"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.1102.0",
-    "@angular/cli": "11.2.0",
+    "@angular-devkit/build-angular": "0.1102.1",
+    "@angular/cli": "11.2.1",
     "@angular/compiler-cli": "11.2.1",
     "@angular/language-service": "11.2.1",
     "@types/date-fns": "2.6.0",
@@ -42,7 +42,7 @@
     "ts-node": "9.1.1",
     "tslint": "6.1.3",
     "typescript": "4.1.5",
-    "@angular-devkit/architect": "0.1102.0",
+    "@angular-devkit/architect": "0.1102.1",
     "firebase-tools": "9.4.0",
     "fuzzy": "0.1.3",
     "inquirer": "7.3.3",
