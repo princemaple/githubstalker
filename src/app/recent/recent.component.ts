@@ -23,6 +23,9 @@ export class RecentComponent implements OnChanges {
   @ViewChild('rateLimitError', {static: true})
   rateLimitErrorTemplate: TemplateRef<any>;
 
+  @ViewChild('privateRepoError', {static: true})
+  privateRepoErrorTemplate: TemplateRef<any>;
+
   groups: Observable<{[dayDiff: number]: {[repo: string]: object[]}}>;
 
   constructor(private http: HttpClient, private dialog: MatDialog) {}
@@ -40,21 +43,31 @@ export class RecentComponent implements OnChanges {
           tap(
             () => {},
             error => {
-              if (error.status === 403) {
-                this.dialog
-                  .open(ConfirmDialogComponent, {
-                    data: {
-                      template: this.rateLimitErrorTemplate,
-                      context: {},
-                    },
-                  })
-                  .afterClosed()
-                  .subscribe(confirm => {
-                    if (confirm) {
-                      window.location.href = GitHubAppOAuthURL;
-                    }
-                  });
+              let template: TemplateRef<any>;
+              switch (error.status) {
+                case 403:
+                  template = this.rateLimitErrorTemplate;
+                  break;
+                case 401:
+                  template = this.privateRepoErrorTemplate;
+                  break;
+                default:
+                  template = this.rateLimitErrorTemplate;
               }
+
+              this.dialog
+                .open(ConfirmDialogComponent, {
+                  data: {
+                    template,
+                    context: {},
+                  },
+                })
+                .afterClosed()
+                .subscribe(confirm => {
+                  if (confirm) {
+                    window.location.href = GitHubAppOAuthURL;
+                  }
+                });
             },
           ),
           map((commits: any[]) => ({repo, commits})),
