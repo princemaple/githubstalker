@@ -48,7 +48,7 @@ export class RecentComponent implements OnChanges {
                 case 403:
                   template = this.rateLimitErrorTemplate;
                   break;
-                case 401:
+                case 404:
                   template = this.privateRepoErrorTemplate;
                   break;
                 default:
