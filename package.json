@@ -26,7 +26,7 @@
     "@angular/service-worker": "11.2.3",
     "date-fns": "2.17.0",
     "lodash-es": "4.17.21",
-    "rxjs": "6.6.3",
+    "rxjs": "6.6.6",
     "tslib": "2.1.0",
     "zone.js": "0.11.4",
     "firebase": "8.2.9"
