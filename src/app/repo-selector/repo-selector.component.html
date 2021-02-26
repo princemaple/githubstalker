@@ -9,14 +9,14 @@
           <a mat-line href="https://github.com/{{ repoGroup.key }}/{{ repoName }}" target="_blank">
             {{ repoName }}
           </a>
-          <span class="count">
+          <a class="count" href="https://github.com/{{ repoGroup.key }}/{{ repoName }}/issues">
             <mat-icon>info</mat-icon>
             {{ repoInfo[repoGroup.key][repoName]?.issues?.totalCount }}
-          </span>
-          <span class="count">
+          </a>
+          <a class="count" href="https://github.com/{{ repoGroup.key }}/{{ repoName }}/pulls">
             <mat-icon>call_merge</mat-icon>
             {{ repoInfo[repoGroup.key][repoName]?.pullRequests?.totalCount }}
-          </span>
+          </a>
           <button
             mat-icon-button
             color="warn"
