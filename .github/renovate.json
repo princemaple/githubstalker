@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:base"],
   "labels": ["dependencies"],
   "packageRules": [
     {
@@ -9,5 +7,6 @@
       "excludePackagePatterns": ["^@angular", "typescript"],
       "automerge": true
     }
-  ]
+  ],
+  "rangeStrategy": "bump"
 }
