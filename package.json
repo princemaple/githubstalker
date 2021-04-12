@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "~11.2.8",
     "@angular/router": "~11.2.8",
     "@angular/service-worker": "~11.2.8",
-    "date-fns": "~2.20.1",
+    "date-fns": "~2.20.2",
     "firebase": "~8.3.3",
     "lodash-es": "~4.17.21",
     "rxjs": "~6.6.7",
